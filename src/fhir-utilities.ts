@@ -36,4 +36,12 @@ export const FhirUtilities = {
       return null;
     }
   },
+
+  /**
+   * Normalizes a FHIR patient ID, stripping any "Patient/" prefix
+   * that may come from SMART launch context (e.g. "Patient/abc123" → "abc123").
+   */
+  normalizePatientId: (id: string): string => {
+    return id.replace(/^Patient\//, "").trim();
+  },
 };

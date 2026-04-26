@@ -20,7 +20,7 @@ class GetPatientSummaryTool implements IMcpTool {
         },
       },
       async ({ patient_id }) => {
-        const id = patient_id ?? FhirUtilities.getPatientIdIfContextExists(req as any) ?? undefined;
+        const id = patient_id ?? (FhirUtilities.getPatientIdIfContextExists(req as any) ? FhirUtilities.normalizePatientId(FhirUtilities.getPatientIdIfContextExists(req as any)!) : undefined);
         if (!id) return { content: [{ type: "text" as const, text: "patient_id required" }], isError: true };
 
         const { getPatientSummary } = await import("./fhir.js");
@@ -43,7 +43,7 @@ class GetActiveMedicationsTool implements IMcpTool {
         },
       },
       async ({ patient_id }) => {
-        const id = patient_id ?? FhirUtilities.getPatientIdIfContextExists(req as any) ?? undefined;
+        const id = patient_id ?? (FhirUtilities.getPatientIdIfContextExists(req as any) ? FhirUtilities.normalizePatientId(FhirUtilities.getPatientIdIfContextExists(req as any)!) : undefined);
         if (!id) return { content: [{ type: "text" as const, text: "patient_id required" }], isError: true };
 
         const { getActiveMedications } = await import("./fhir.js");
@@ -66,7 +66,7 @@ class GetAllergiesTool implements IMcpTool {
         },
       },
       async ({ patient_id }) => {
-        const id = patient_id ?? FhirUtilities.getPatientIdIfContextExists(req as any) ?? undefined;
+        const id = patient_id ?? (FhirUtilities.getPatientIdIfContextExists(req as any) ? FhirUtilities.normalizePatientId(FhirUtilities.getPatientIdIfContextExists(req as any)!) : undefined);
         if (!id) return { content: [{ type: "text" as const, text: "patient_id required" }], isError: true };
 
         const { getAllergies } = await import("./fhir.js");
@@ -89,7 +89,7 @@ class GetActiveConditionsTool implements IMcpTool {
         },
       },
       async ({ patient_id }) => {
-        const id = patient_id ?? FhirUtilities.getPatientIdIfContextExists(req as any) ?? undefined;
+        const id = patient_id ?? (FhirUtilities.getPatientIdIfContextExists(req as any) ? FhirUtilities.normalizePatientId(FhirUtilities.getPatientIdIfContextExists(req as any)!) : undefined);
         if (!id) return { content: [{ type: "text" as const, text: "patient_id required" }], isError: true };
 
         const { getActiveConditions } = await import("./fhir.js");
@@ -112,7 +112,7 @@ class GetRecentLabsTool implements IMcpTool {
         },
       },
       async ({ patient_id }) => {
-        const id = patient_id ?? FhirUtilities.getPatientIdIfContextExists(req as any) ?? undefined;
+        const id = patient_id ?? (FhirUtilities.getPatientIdIfContextExists(req as any) ? FhirUtilities.normalizePatientId(FhirUtilities.getPatientIdIfContextExists(req as any)!) : undefined);
         if (!id) return { content: [{ type: "text" as const, text: "patient_id required" }], isError: true };
 
         const { getRecentLabs } = await import("./fhir.js");
@@ -160,7 +160,7 @@ class GenerateDischargeSummaryTool implements IMcpTool {
         },
       },
       async ({ patient_id, include_patient_card, include_pcp_note }) => {
-        const id = patient_id ?? FhirUtilities.getPatientIdIfContextExists(req as any) ?? undefined;
+        const id = patient_id ?? (FhirUtilities.getPatientIdIfContextExists(req as any) ? FhirUtilities.normalizePatientId(FhirUtilities.getPatientIdIfContextExists(req as any)!) : undefined);
         if (!id) return { content: [{ type: "text" as const, text: "patient_id required" }], isError: true };
 
         const { generateDischargeSummary } = await import("./summary.js");
