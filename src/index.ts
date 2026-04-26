@@ -18,25 +18,20 @@
 import express from "express";
 import cors from "cors";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { createMcpExpressApp } from "@modelcontextprotocol/sdk/server/express.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 
 import * as tools from "./tools/index.js";
 import { IMcpTool } from "./IMcpTool.js";
 
-// ─── Transport selection ──────────────────────────────────────────────────────
-
 const isHttp = process.env.PORT !== undefined || process.env.MCP_TRANSPORT === "http";
 
 if (!isHttp) {
   // ── Stdio mode (Claude Desktop, opencode) ──────────────────────────────────
-  const { McpServer: _McpServer } = await import("@modelcontextprotocol/sdk/server/mcp.js");
-  const server = new _McpServer({ name: "discharge-guard", version: "1.0.0" });
+  const server = new McpServer({ name: "discharge-guard", version: "1.0.0" });
 
-  // Register all tools with undefined req (no FHIR context in stdio mode)
   for (const tool of Object.values<IMcpTool>(tools)) {
-    tool.registerTool(server, undefined as unknown as express.Request);
+    tool.registerTool(server, undefined);
   }
 
   const transport = new StdioServerTransport();
@@ -44,21 +39,10 @@ if (!isHttp) {
   process.stderr.write(JSON.stringify({ status: "started", transport: "stdio" }) + "\n");
 
 } else {
-  // ── HTTP mode (Prompt Opinion, Railway) ───────────────────────────────────
-  const env = process.env["PO_ENV"]?.toString();
-  const allowedHosts: string[] = ["localhost", "127.0.0.1"];
-
-  switch (env) {
-    case "dev":
-      allowedHosts.push("ts.fhir-mcp.dev.promptopinion.ai");
-      break;
-    case "prod":
-      allowedHosts.push("ts.fhir-mcp.promptopinion.ai");
-      break;
-  }
-
-  const app = createMcpExpressApp({ host: "0.0.0.0", allowedHosts });
+  // ── HTTP mode (Prompt Opinion, Railway, ngrok) ────────────────────────────
+  const app = express();
   app.use(cors());
+  app.use(express.json());
 
   app.get("/health", (_req, res) => {
     res.json({ status: "ok", server: "discharge-guard", version: "1.0.0", tools: Object.keys(tools) });
@@ -100,11 +84,11 @@ if (!isHttp) {
       await server.connect(transport);
       await transport.handleRequest(req, res, req.body);
     } catch (error) {
-      console.error("MCP request error:", error);
+      process.stderr.write("MCP error: " + String(error) + "\n");
       if (!res.headersSent) {
         res.status(500).json({
           jsonrpc: "2.0",
-          error: { code: -32603, message: "Internal server error" },
+          error: { code: -32603, message: error instanceof Error ? error.message : String(error) },
           id: null,
         });
       }
