@@ -223,12 +223,13 @@ export interface FhirObservation extends FhirResource {
 export class FhirClient {
   private readonly client: AxiosInstance;
 
-  constructor(baseUrl: string = FHIR_BASE_URL) {
+  constructor(baseUrl: string = FHIR_BASE_URL, token?: string) {
     this.client = axios.create({
       baseURL: baseUrl,
       headers: {
         Accept: "application/fhir+json",
         "Content-Type": "application/fhir+json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
       timeout: 30_000,
     });

@@ -13,14 +13,29 @@
  */
 
 import { z } from "zod";
+import { Request } from "express";
 import {
+  FhirClient,
   fhirClient,
+  FHIR_BASE_URL,
   type FhirPatient,
   type FhirMedicationRequest,
   type FhirAllergyIntolerance,
   type FhirCondition,
   type FhirObservation,
 } from "../utils/fhir-client.js";
+import { FhirUtilities } from "../fhir-utilities.js";
+
+function getClient(req?: Request | undefined): FhirClient {
+  if (!req) return fhirClient;
+  try {
+    const ctx = FhirUtilities.getFhirContext(req);
+    if (!ctx) return fhirClient;
+    return new FhirClient(ctx.url, ctx.token);
+  } catch {
+    return fhirClient;
+  }
+}
 
 // ─── Input schemas ────────────────────────────────────────────────────────────
 
@@ -109,13 +124,14 @@ function codeableConceptText(
  * @param input - Validated tool input containing patient_id
  */
 export async function getPatientSummary(
-  input: z.infer<typeof PatientIdSchema>
+  input: z.infer<typeof PatientIdSchema>,
+  req?: Request | undefined
 ) {
   const { patient_id } = input;
 
   let patient: FhirPatient;
   try {
-    patient = await fhirClient.getResource<FhirPatient>("Patient", patient_id);
+    patient = await getClient(req).getResource<FhirPatient>("Patient", patient_id);
   } catch (err) {
     return {
       error: `Failed to fetch patient ${patient_id}: ${err instanceof Error ? err.message : String(err)}`,
@@ -169,7 +185,8 @@ export async function getPatientSummary(
  * @param input - Validated tool input containing patient_id
  */
 export async function getActiveMedications(
-  input: z.infer<typeof PatientIdSchema>
+  input: z.infer<typeof PatientIdSchema>,
+  req?: Request | undefined
 ) {
   const { patient_id } = input;
 
@@ -177,11 +194,11 @@ export async function getActiveMedications(
   let fetchError: string | undefined;
 
   try {
-    const bundle = await fhirClient.searchResources<FhirMedicationRequest>(
+    const bundle = await getClient(req).searchResources<FhirMedicationRequest>(
       "MedicationRequest",
       { patient: patient_id, status: "active", _count: "50" }
     );
-    medications = fhirClient.extractResources(bundle);
+    medications = getClient(req).extractResources(bundle);
   } catch (err) {
     fetchError = `Failed to fetch medications: ${err instanceof Error ? err.message : String(err)}`;
   }
@@ -235,18 +252,18 @@ export async function getActiveMedications(
  *
  * @param input - Validated tool input containing patient_id
  */
-export async function getAllergies(input: z.infer<typeof PatientIdSchema>) {
+export async function getAllergies(input: z.infer<typeof PatientIdSchema>, req?: Request | undefined) {
   const { patient_id } = input;
 
   let allergies: FhirAllergyIntolerance[] = [];
   let fetchError: string | undefined;
 
   try {
-    const bundle = await fhirClient.searchResources<FhirAllergyIntolerance>(
+    const bundle = await getClient(req).searchResources<FhirAllergyIntolerance>(
       "AllergyIntolerance",
       { patient: patient_id, _count: "50" }
     );
-    allergies = fhirClient.extractResources(bundle);
+    allergies = getClient(req).extractResources(bundle);
   } catch (err) {
     fetchError = `Failed to fetch allergies: ${err instanceof Error ? err.message : String(err)}`;
   }
@@ -305,7 +322,8 @@ export async function getAllergies(input: z.infer<typeof PatientIdSchema>) {
  * @param input - Validated tool input containing patient_id
  */
 export async function getActiveConditions(
-  input: z.infer<typeof PatientIdSchema>
+  input: z.infer<typeof PatientIdSchema>,
+  req?: Request | undefined
 ) {
   const { patient_id } = input;
 
@@ -313,7 +331,7 @@ export async function getActiveConditions(
   let fetchError: string | undefined;
 
   try {
-    const bundle = await fhirClient.searchResources<FhirCondition>(
+    const bundle = await getClient(req).searchResources<FhirCondition>(
       "Condition",
       {
         patient: patient_id,
@@ -321,7 +339,7 @@ export async function getActiveConditions(
         _count: "50",
       }
     );
-    conditions = fhirClient.extractResources(bundle);
+    conditions = getClient(req).extractResources(bundle);
   } catch (err) {
     fetchError = `Failed to fetch conditions: ${err instanceof Error ? err.message : String(err)}`;
   }
@@ -378,14 +396,14 @@ export async function getActiveConditions(
  *
  * @param input - Validated tool input containing patient_id
  */
-export async function getRecentLabs(input: z.infer<typeof PatientIdSchema>) {
+export async function getRecentLabs(input: z.infer<typeof PatientIdSchema>, req?: Request | undefined) {
   const { patient_id } = input;
 
   let labs: FhirObservation[] = [];
   let fetchError: string | undefined;
 
   try {
-    const bundle = await fhirClient.searchResources<FhirObservation>(
+    const bundle = await getClient(req).searchResources<FhirObservation>(
       "Observation",
       {
         patient: patient_id,
@@ -394,7 +412,7 @@ export async function getRecentLabs(input: z.infer<typeof PatientIdSchema>) {
         _count: "10",
       }
     );
-    labs = fhirClient.extractResources(bundle);
+    labs = getClient(req).extractResources(bundle);
   } catch (err) {
     fetchError = `Failed to fetch labs: ${err instanceof Error ? err.message : String(err)}`;
   }

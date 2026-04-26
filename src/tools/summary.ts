@@ -16,6 +16,7 @@
  */
 
 import { z } from "zod";
+import { Request } from "express";
 import { getPatientSummary, getActiveMedications, getAllergies, getActiveConditions, getRecentLabs, buildSharpContext } from "./fhir.js";
 import { checkDrugInteractions } from "./drugs.js";
 
@@ -60,7 +61,8 @@ interface MedicationInfo {
  * @param input - Validated input with patient_id and output format flags
  */
 export async function generateDischargeSummary(
-  input: z.infer<typeof GenerateDischargeSummarySchema>
+  input: z.infer<typeof GenerateDischargeSummarySchema>,
+  req?: Request | undefined
 ) {
   const { patient_id, include_patient_card, include_pcp_note } = input;
   const generatedAt = new Date().toISOString();
@@ -68,11 +70,11 @@ export async function generateDischargeSummary(
   // ── Phase 1: Parallel FHIR data collection ──────────────────────────────────
   const [patientResult, medicationsResult, allergiesResult, conditionsResult, labsResult] =
     await Promise.allSettled([
-      getPatientSummary({ patient_id }),
-      getActiveMedications({ patient_id }),
-      getAllergies({ patient_id }),
-      getActiveConditions({ patient_id }),
-      getRecentLabs({ patient_id }),
+      getPatientSummary({ patient_id }, req),
+      getActiveMedications({ patient_id }, req),
+      getAllergies({ patient_id }, req),
+      getActiveConditions({ patient_id }, req),
+      getRecentLabs({ patient_id }, req),
     ]);
 
   const patient =

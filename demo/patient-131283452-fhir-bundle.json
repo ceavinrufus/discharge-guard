@@ -1,0 +1,2212 @@
+{
+  "resourceType": "Bundle",
+  "id": "b0f3dcf9-0a90-4111-ab81-b49d9e418983",
+  "meta": {
+    "lastUpdated": "2026-04-26T09:19:56.842+00:00"
+  },
+  "type": "batch",
+  "link": [
+    {
+      "relation": "self",
+      "url": "https://hapi.fhir.org/baseR4/Patient/131283452/$everything?_count=50&_format=json"
+    },
+    {
+      "relation": "next",
+      "url": "https://hapi.fhir.org/baseR4?_getpages=b0f3dcf9-0a90-4111-ab81-b49d9e418983&_getpagesoffset=50&_count=50&_format=json&_pretty=true&_bundletype=searchset"
+    }
+  ],
+  "entry": [
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/131283452",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "131283452",
+        "meta": {
+          "versionId": "2",
+          "lastUpdated": "2026-03-17T16:43:56.845+00:00",
+          "source": "#VT0n72WWCYS1mEAp"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"/><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td/></tr><tr><td>Date of birth</td><td><span>17 September 1953</span></td></tr></tbody></table></div>"
+        },
+        "gender": "male",
+        "birthDate": "1953-09-17"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/131283452"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Encounter/131283453",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "131283453",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:06.989+00:00",
+          "source": "#El8COkfKYtY2pv95"
+        },
+        "status": "in-progress",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "EMER",
+          "display": "Emergency"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "reasonCode": [
+          {
+            "text": "Colitis on CT, hypotensive"
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "display": "ED"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/131283453"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/AllergyIntolerance/131283454",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "131283454",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:07.988+00:00",
+          "source": "#9cFiCym6azxOKoMz"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "text": "No Known Drug Allergies"
+        },
+        "patient": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "AllergyIntolerance/131283454"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/131283455",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "131283455",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:08.989+00:00",
+          "source": "#hL44N6d9pMtY8B1S"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "I10",
+              "display": "Hypertension"
+            }
+          ],
+          "text": "Hypertension"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/131283455"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/131283456",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "131283456",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:09.988+00:00",
+          "source": "#m2iXtnkFoDktjLbs"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "I48.91",
+              "display": "Atrial fibrillation"
+            }
+          ],
+          "text": "Atrial fibrillation"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/131283456"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/131283457",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "131283457",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:10.988+00:00",
+          "source": "#Ujb6cIeJCC7KoSaS"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "I25.10",
+              "display": "Coronary artery disease"
+            }
+          ],
+          "text": "Coronary artery disease"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/131283457"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/131283458",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "131283458",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:11.989+00:00",
+          "source": "#qpvEjG9RT25r1oXy"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "N18.3",
+              "display": "Chronic kidney disease stage 3"
+            }
+          ],
+          "text": "Chronic kidney disease stage 3"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/131283458"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/131283459",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "131283459",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:12.989+00:00",
+          "source": "#oPCED4gBWB15tOfs"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "E78.5",
+              "display": "Hyperlipidemia"
+            }
+          ],
+          "text": "Hyperlipidemia"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/131283459"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Condition/131283460",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "131283460",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:13.989+00:00",
+          "source": "#iyerfgqLsMFfyMyN"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "G45.9",
+              "display": "TIA (2017)"
+            }
+          ],
+          "text": "TIA (2017)"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/131283460"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283461",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283461",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:14.989+00:00",
+          "source": "#k3FBR228CxiHp66k"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ],
+          "text": "Body temperature"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "effectiveDateTime": "2026-02-22T01:41:00Z",
+        "valueQuantity": {
+          "value": 38.3,
+          "unit": "\u00b0C",
+          "system": "http://unitsofmeasure.org",
+          "code": "Cel"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283461"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283462",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283462",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:15.988+00:00",
+          "source": "#pdxM3HYXHjgMMsyz"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "effectiveDateTime": "2026-02-22T01:41:00Z",
+        "valueQuantity": {
+          "value": 118,
+          "unit": "bpm",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283462"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283463",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283463",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:16.989+00:00",
+          "source": "#YIKqrjQlXWjhGyDG"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "9279-1",
+              "display": "Respiratory rate"
+            }
+          ],
+          "text": "Respiratory rate"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "effectiveDateTime": "2026-02-22T01:41:00Z",
+        "valueQuantity": {
+          "value": 24,
+          "unit": "breaths/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283463"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283464",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283464",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:17.991+00:00",
+          "source": "#PM4yy1FAraJTsMnM"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2708-6",
+              "display": "Oxygen saturation"
+            }
+          ],
+          "text": "Oxygen saturation"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "effectiveDateTime": "2026-02-22T01:41:00Z",
+        "valueQuantity": {
+          "value": 95,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283464"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283465",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283465",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:18.989+00:00",
+          "source": "#cujZg027eMx6KAjL"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85354-9",
+              "display": "Blood pressure"
+            }
+          ],
+          "text": "Blood pressure"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "effectiveDateTime": "2026-02-22T01:41:00Z",
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8480-6",
+                  "display": "Systolic"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 94,
+              "unit": "mmHg"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8462-4",
+                  "display": "Diastolic"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 58,
+              "unit": "mmHg"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283465"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283466",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283466",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:19.989+00:00",
+          "source": "#Xv28hwbtlpSc9YrJ"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ],
+          "text": "Body temperature"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "effectiveDateTime": "2026-02-22T02:09:00Z",
+        "valueQuantity": {
+          "value": 38.5,
+          "unit": "\u00b0C",
+          "system": "http://unitsofmeasure.org",
+          "code": "Cel"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283466"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283467",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283467",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:20.989+00:00",
+          "source": "#bFOqi2qHkjgwojW0"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "Heart rate"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "effectiveDateTime": "2026-02-22T02:09:00Z",
+        "valueQuantity": {
+          "value": 122,
+          "unit": "bpm",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283467"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283468",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283468",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:21.989+00:00",
+          "source": "#KlK9653Y9zOUk1Qe"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "9279-1",
+              "display": "Respiratory rate"
+            }
+          ],
+          "text": "Respiratory rate"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "effectiveDateTime": "2026-02-22T02:09:00Z",
+        "valueQuantity": {
+          "value": 26,
+          "unit": "breaths/min",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283468"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283469",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283469",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:22.989+00:00",
+          "source": "#4CYkYbPRRJxH2ZRh"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2708-6",
+              "display": "Oxygen saturation"
+            }
+          ],
+          "text": "Oxygen saturation"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "effectiveDateTime": "2026-02-22T02:09:00Z",
+        "valueQuantity": {
+          "value": 94,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283469"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283470",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283470",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:23.989+00:00",
+          "source": "#DHq21XMTqdpTIdH1"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "85354-9",
+              "display": "Blood pressure"
+            }
+          ],
+          "text": "Blood pressure"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "effectiveDateTime": "2026-02-22T02:09:00Z",
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8480-6",
+                  "display": "Systolic"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 88,
+              "unit": "mmHg"
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8462-4",
+                  "display": "Diastolic"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 54,
+              "unit": "mmHg"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283470"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283471",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283471",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:24.989+00:00",
+          "source": "#B5Y20OnVymybaheL"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "WBC"
+            }
+          ],
+          "text": "WBC"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 18.4,
+          "unit": "10*3/uL",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283471"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283472",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283472",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:25.988+00:00",
+          "source": "#98U7hnobI0TTZCUv"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin"
+            }
+          ],
+          "text": "Hemoglobin"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 11.2,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283472"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283473",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283473",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:26.990+00:00",
+          "source": "#tll8phVM8eHyl7Hg"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "777-3",
+              "display": "Platelets"
+            }
+          ],
+          "text": "Platelets"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 210,
+          "unit": "10*3/uL",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283473"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283474",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283474",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:27.989+00:00",
+          "source": "#OAt82ec7b9nmyK5j"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2951-2",
+              "display": "Sodium"
+            }
+          ],
+          "text": "Sodium"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 132,
+          "unit": "mEq/L",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283474"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283475",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283475",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:28.989+00:00",
+          "source": "#KuMPSvWX2smYlS6Y"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Potassium"
+            }
+          ],
+          "text": "Potassium"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 5.3,
+          "unit": "mEq/L",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283475"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283476",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283476",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:29.989+00:00",
+          "source": "#TKLOnTqqGjzsHIIo"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2028-9",
+              "display": "CO2"
+            }
+          ],
+          "text": "CO2"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 17,
+          "unit": "mEq/L",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283476"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283477",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283477",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:30.989+00:00",
+          "source": "#F72T7fdHFjjIyTAA"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3094-0",
+              "display": "BUN"
+            }
+          ],
+          "text": "BUN"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 42,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283477"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283478",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283478",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:31.989+00:00",
+          "source": "#kyolhpQXVcezuY2Y"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Creatinine"
+            }
+          ],
+          "text": "Creatinine"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 2.4,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283478"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283479",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283479",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:32.989+00:00",
+          "source": "#kM7uuKUugG3xqUTy"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2345-7",
+              "display": "Glucose"
+            }
+          ],
+          "text": "Glucose"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 168,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283479"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283480",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283480",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:33.989+00:00",
+          "source": "#RwAmxTlSRZpTNAwB"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2524-7",
+              "display": "Lactate"
+            }
+          ],
+          "text": "Lactate"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 4.6,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283480"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283481",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283481",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:34.989+00:00",
+          "source": "#ijKuhStds5Dxmbky"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6301-6",
+              "display": "INR"
+            }
+          ],
+          "text": "INR"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 1.5,
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283481"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283482",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283482",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:35.989+00:00",
+          "source": "#PhRH7GybG5xNUBjo"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "49563-0",
+              "display": "Troponin"
+            }
+          ],
+          "text": "Troponin"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 0.06,
+          "unit": "ng/mL",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283482"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283483",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283483",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:36.989+00:00",
+          "source": "#b0MIXyAurJb5DteS"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2744-1",
+              "display": "pH"
+            }
+          ],
+          "text": "pH"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 7.29,
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283483"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283484",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283484",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:37.989+00:00",
+          "source": "#ZEFKFi0uNNJCDyyM"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2019-8",
+              "display": "pCO2"
+            }
+          ],
+          "text": "pCO2"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 30,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283484"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/131283485",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "131283485",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:38.988+00:00",
+          "source": "#yCjgnTXBXpysTXfD"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1963-8",
+              "display": "HCO3"
+            }
+          ],
+          "text": "HCO3"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "valueQuantity": {
+          "value": 15,
+          "unit": "mEq/L",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/131283485"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/131283486",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "131283486",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:39.989+00:00",
+          "source": "#KEfwPOfxuVGNypYu"
+        },
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "community"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1364430",
+              "display": "Apixaban 5mg BID"
+            }
+          ],
+          "text": "Apixaban 5mg BID"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/131283486"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/131283487",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "131283487",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:40.989+00:00",
+          "source": "#NLnApuW7T42W8w3p"
+        },
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "community"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "6918",
+              "display": "Metoprolol"
+            }
+          ],
+          "text": "Metoprolol"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/131283487"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/131283488",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "131283488",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:41.989+00:00",
+          "source": "#r3ff2U3xo3TLKXnx"
+        },
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "community"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "29046",
+              "display": "Lisinopril"
+            }
+          ],
+          "text": "Lisinopril"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/131283488"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/131283489",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "131283489",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:42.989+00:00",
+          "source": "#8b30eVARZlzx78sc"
+        },
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "community"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "83367",
+              "display": "Atorvastatin"
+            }
+          ],
+          "text": "Atorvastatin"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/131283489"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/131283490",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "131283490",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:43.989+00:00",
+          "source": "#W6eWqgqjVXURfsLA"
+        },
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "community"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1191",
+              "display": "Aspirin 81mg daily"
+            }
+          ],
+          "text": "Aspirin 81mg daily"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/131283490"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/131283491",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "131283491",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:44.989+00:00",
+          "source": "#ece3cQrBE37wDSHB"
+        },
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "inpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "309090",
+              "display": "Ceftriaxone IV"
+            }
+          ],
+          "text": "Ceftriaxone IV"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/131283491"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/131283492",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "131283492",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:45.989+00:00",
+          "source": "#NRuuQ0kLrQeCyT5P"
+        },
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "inpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "29529",
+              "display": "Metronidazole IV"
+            }
+          ],
+          "text": "Metronidazole IV"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/131283492"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/131283493",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "131283493",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:46.989+00:00",
+          "source": "#sqk3YGZd3AbBeZ9L"
+        },
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "inpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "313002",
+              "display": "Normal Saline 1L IV"
+            }
+          ],
+          "text": "Normal Saline 1L IV"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/131283493"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/131283494",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "131283494",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:47.988+00:00",
+          "source": "#zKjTRFJIgwcbFcLy"
+        },
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "inpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "73032",
+              "display": "Morphine 1mg IV"
+            }
+          ],
+          "text": "Morphine 1mg IV"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/131283494"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/131283495",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "131283495",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:48.988+00:00",
+          "source": "#2YzreKDHZD0wEiwK"
+        },
+        "status": "completed",
+        "code": {
+          "text": "Open AAA repair (2008)"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/131283495"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Procedure/131283496",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "131283496",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:49.989+00:00",
+          "source": "#NeCH16bUsKyakfsB"
+        },
+        "status": "completed",
+        "code": {
+          "text": "Laparoscopic cholecystectomy"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/131283496"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DiagnosticReport/131283497",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "131283497",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:50.989+00:00",
+          "source": "#sADFgIW1jb7JeYau"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"> CT Abdomen/Pelvis without Contrast </div><table class=\"hapiPropertyTable\"><tbody><tr><td>Status</td><td>PRELIMINARY</td></tr><tr><td>Conclusion</td><td>Diffuse thickening descending and sigmoid colon. Pericolonic stranding. Mild pneumatosis cannot be excluded. No free air. Limited evaluation of vasculature without contrast. Impression: Colitis, questionable ischemic changes in sigmoid, correlate clinically.</td></tr></tbody></table></div>"
+        },
+        "status": "preliminary",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "RAD"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "CT Abdomen/Pelvis without Contrast"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "encounter": {
+          "reference": "Encounter/131283453"
+        },
+        "conclusion": "Diffuse thickening descending and sigmoid colon. Pericolonic stranding. Mild pneumatosis cannot be excluded. No free air. Limited evaluation of vasculature without contrast. Impression: Colitis, questionable ischemic changes in sigmoid, correlate clinically."
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/131283497"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/DocumentReference/131283498",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "131283498",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-02-23T03:14:51.990+00:00",
+          "source": "#azFquP9Z3Q62vSgY"
+        },
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "34878-9",
+              "display": "Emergency medicine Note"
+            }
+          ],
+          "text": "ED Provider Note"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "RUQgUFJPVklERVIgTk9URSAoMDI6MDUpCkhQSTogNzJ5byBNIGh4IGFmaWIgb24gZWxpcXVpcywgQ0FEIHMvcCBQQ0kgMjAxOSwgQ0tEMywgSFROIHByZXNlbnRzIHdpdGggYWJkIHBhaW4uIFN0YXJ0ZWQgZWFybGllciB0b2RheSwgZ2V0dGluZyB3b3JzZS4gRW5kb3JzZXMgTiwgbm8gVi4gUmF0ZXMgcGFpbiA5LzEwLiBBbHNvIGhhdmluZyBkaWFycmhlYS4gV2lmZSBzYXlzIHB0IHNlZW1zIGNvbmZ1c2VkIHRvbmlnaHQuCgpFeGFtOiBJbGwgYXBwZWFyaW5nLiBUYWNoeWNhcmRpYy4gQWJkIGRpZmZ1c2VseSB0ZW5kZXIsIHdvcnNlIExMUS4gU29tZSBndWFyZGluZy4KCkFzc2Vzc21lbnQ6IENvbGl0aXMuIFN1cmdlcnkgY29uc3VsdGVkLgoKRUtHOiBBRmliIFJWUiAxMTg="
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DocumentReference/131283498"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/131365346",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "131365346",
+        "meta": {
+          "versionId": "2",
+          "lastUpdated": "2026-03-13T23:12:12.026+00:00",
+          "source": "#bt5ikxUVkztEiJRN"
+        },
+        "status": "stopped",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "Atrovastatin"
+            }
+          ],
+          "text": "Atrovastatin"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "dosageInstruction": [
+          {
+            "text": "81mg, Once Daily"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/131365346"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/131365354",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "131365354",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-03-13T23:27:25.511+00:00",
+          "source": "#MNuTOUE9JNRUPxGK"
+        },
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "Mesalamine"
+            }
+          ],
+          "text": "Mesalamine"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "dosageInstruction": [
+          {
+            "text": "10, Once"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/131365354"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/MedicationRequest/131365355",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "131365355",
+        "meta": {
+          "versionId": "2",
+          "lastUpdated": "2026-03-13T23:30:47.757+00:00",
+          "source": "#7319Uckt1iSLhCaq"
+        },
+        "status": "stopped",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "xy"
+            }
+          ],
+          "text": "xy"
+        },
+        "subject": {
+          "reference": "Patient/131283452"
+        },
+        "dosageInstruction": [
+          {
+            "text": "2, 12"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/131365355"
+      }
+    }
+  ]
+}

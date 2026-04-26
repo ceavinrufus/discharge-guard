@@ -5,18 +5,26 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
+    "start": "npx tsx src/index.ts",
     "build": "tsc",
-    "dev": "node --experimental-vm-modules dist/index.js",
-    "start": "node dist/index.js",
+    "dev": "npx tsx src/index.ts",
+    "dev:http": "PORT=3001 npx tsx src/index.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.10.2",
+    "@smile-cdr/fhirts": "^2.3.0",
     "axios": "^1.7.2",
+    "cors": "^2.8.6",
+    "date-fns": "^4.1.0",
+    "jose": "^6.2.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
     "@types/node": "^20.14.9",
+    "tsx": "^4.21.0",
     "typescript": "^5.5.3"
   },
   "engines": {
