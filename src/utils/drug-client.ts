@@ -3,10 +3,12 @@
  *
  * Provides typed access to:
  * - NLM RxNorm API: drug name → RxCUI normalization
- * - NLM RxNav Drug Interactions API: multi-drug interaction checking
- * - OpenFDA Drug Labels API: detailed drug label information
+ * - OpenFDA Drug Labels API: drug label information + interaction text
  *
  * All APIs are free and require no authentication.
+ *
+ * Note: The NLM RxNav /interaction/list.json endpoint returns 404 and has been
+ * replaced with OpenFDA drug label text for interaction information.
  */
 
 import axios, { type AxiosInstance } from "axios";
@@ -66,31 +68,26 @@ interface RxNormResponse {
 }
 
 /**
- * RxNav interaction API response shape.
+ * OpenFDA drug label API response shape.
  */
-interface RxNavInteractionResponse {
-  fullInteractionTypeGroup?: Array<{
-    sourceName?: string;
-    fullInteractionType?: Array<{
-      comment?: string;
-      minConceptItem?: Array<{
-        rxcui?: string;
-        name?: string;
-      }>;
-      interactionPair?: Array<{
-        interactionConcept?: Array<{
-          minConceptItem?: { rxcui?: string; name?: string };
-          sourceConceptItem?: { doseFormGroupName?: string; name?: string };
-        }>;
-        severity?: string;
-        description?: string;
-      }>;
-    }>;
+interface FdaLabelResponse {
+  results?: Array<{
+    openfda?: {
+      brand_name?: string[];
+      generic_name?: string[];
+    };
+    warnings?: string[];
+    warnings_and_cautions?: string[];
+    contraindications?: string[];
+    adverse_reactions?: string[];
+    drug_interactions?: string[];
+    dosage_and_administration?: string[];
+    dosage_and_administration_table?: string[];
   }>;
 }
 
 /**
- * Drug information client wrapping RxNorm, RxNav, and OpenFDA APIs.
+ * Drug information client wrapping RxNorm and OpenFDA APIs.
  */
 export class DrugClient {
   private readonly rxnormClient: AxiosInstance;
@@ -159,61 +156,39 @@ export class DrugClient {
   }
 
   /**
-   * Checks drug-drug interactions for a list of RxCUIs using NLM RxNav.
-   * Requires at least 2 RxCUIs.
+   * Fetches the OpenFDA drug label for a given drug name and extracts
+   * the drug_interactions field text.
    *
-   * @param rxcuis - Array of RxCUI strings to check
+   * @param drugName - Drug name (brand or generic)
    */
-  async checkInteractionsByRxCui(
-    rxcuis: string[]
-  ): Promise<DrugInteraction[]> {
-    if (rxcuis.length < 2) return [];
-
+  async getInteractionTextForDrug(drugName: string): Promise<string | null> {
     try {
-      const response = await this.rxnormClient.get<RxNavInteractionResponse>(
-        `/interaction/list.json`,
-        {
-          params: { rxcuis: rxcuis.join("+") },
-        }
-      );
-
-      const interactions: DrugInteraction[] = [];
-      const groups = response.data?.fullInteractionTypeGroup ?? [];
-
-      for (const group of groups) {
-        for (const type of group.fullInteractionType ?? []) {
-          for (const pair of type.interactionPair ?? []) {
-            const concepts = pair.interactionConcept ?? [];
-            const drug1Name =
-              concepts[0]?.minConceptItem?.name ??
-              concepts[0]?.sourceConceptItem?.name ??
-              "Unknown";
-            const drug2Name =
-              concepts[1]?.minConceptItem?.name ??
-              concepts[1]?.sourceConceptItem?.name ??
-              "Unknown";
-
-            interactions.push({
-              drug1: drug1Name,
-              drug2: drug2Name,
-              severity: this.parseSeverity(pair.severity),
-              description:
-                pair.description ??
-                type.comment ??
-                "No description available",
-            });
+      // Try brand name first, then generic name
+      for (const searchField of ["openfda.brand_name", "openfda.generic_name"]) {
+        const response = await this.fdaClient.get<FdaLabelResponse>(
+          "/drug/label.json",
+          {
+            params: {
+              search: `${searchField}:"${drugName}"`,
+              limit: 1,
+            },
           }
+        );
+
+        const result = response.data?.results?.[0];
+        if (result?.drug_interactions?.[0]) {
+          return result.drug_interactions[0];
         }
       }
-
-      return interactions;
+      return null;
     } catch {
-      return [];
+      return null;
     }
   }
 
   /**
-   * Full interaction check workflow: resolve names → get RxCUIs → check interactions.
+   * Checks drug-drug interactions by fetching OpenFDA drug label texts
+   * for each drug and combining them into interaction findings.
    *
    * @param drugNames - List of drug names to check
    */
@@ -221,13 +196,67 @@ export class DrugClient {
     drugNames: string[]
   ): Promise<InteractionCheckResult> {
     const drugs = await this.resolveMultipleRxCuis(drugNames);
-    const resolved = drugs.filter((d) => d.rxcui !== null);
     const unresolvable = drugs
       .filter((d) => d.rxcui === null)
       .map((d) => d.name);
 
-    const rxcuis = resolved.map((d) => d.rxcui as string);
-    const interactions = await this.checkInteractionsByRxCui(rxcuis);
+    // Fetch OpenFDA interaction text for each drug in parallel
+    const interactionTexts = await Promise.allSettled(
+      drugNames.map(async (name) => ({
+        name,
+        text: await this.getInteractionTextForDrug(name),
+      }))
+    );
+
+    const interactions: DrugInteraction[] = [];
+
+    for (const settled of interactionTexts) {
+      if (settled.status !== "fulfilled" || !settled.value.text) continue;
+
+      const { name, text } = settled.value;
+      const lowerText = text.toLowerCase();
+
+      // Check if any of the other drugs in the list are mentioned in this
+      // drug's interaction text — if so, create a pairwise interaction entry
+      for (const otherDrug of drugNames) {
+        if (otherDrug === name) continue;
+        if (lowerText.includes(otherDrug.toLowerCase())) {
+          const severity = this.inferSeverityFromText(lowerText);
+
+          // Avoid duplicate pairs
+          const alreadyAdded = interactions.some(
+            (i) =>
+              (i.drug1 === name && i.drug2 === otherDrug) ||
+              (i.drug1 === otherDrug && i.drug2 === name)
+          );
+
+          if (!alreadyAdded) {
+            interactions.push({
+              drug1: name,
+              drug2: otherDrug,
+              severity,
+              description: this.truncateInteractionText(text),
+              sourceUrl: `https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${encodeURIComponent(name)}"&limit=1`,
+            });
+          }
+        }
+      }
+
+      // If no specific pair match, add a general entry noting this drug
+      // has interaction warnings relevant to the regimen
+      const hasPairMatch = interactions.some(
+        (i) => i.drug1 === name || i.drug2 === name
+      );
+      if (!hasPairMatch && text.length > 20) {
+        interactions.push({
+          drug1: name,
+          drug2: "other medications in regimen",
+          severity: this.inferSeverityFromText(lowerText),
+          description: this.truncateInteractionText(text),
+          sourceUrl: `https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${encodeURIComponent(name)}"&limit=1`,
+        });
+      }
+    }
 
     return {
       drugs,
@@ -244,29 +273,29 @@ export class DrugClient {
    */
   async getDrugLabel(brandName: string): Promise<FdaDrugLabel | null> {
     try {
-      const response = await this.fdaClient.get<{
-        results?: Array<Record<string, string[] | undefined>>;
-      }>("/drug/label.json", {
-        params: {
-          search: `openfda.brand_name:"${brandName}"`,
-          limit: 1,
-        },
-      });
+      const response = await this.fdaClient.get<FdaLabelResponse>(
+        "/drug/label.json",
+        {
+          params: {
+            search: `openfda.brand_name:"${brandName}"`,
+            limit: 1,
+          },
+        }
+      );
 
       const result = response.data?.results?.[0];
       if (!result) return null;
 
       return {
-        brandName: result["openfda.brand_name"] ?? result["brand_name"] ?? [],
-        genericName:
-          result["openfda.generic_name"] ?? result["generic_name"] ?? [],
-        warnings: result["warnings"] ?? result["warnings_and_cautions"] ?? [],
-        contraindications: result["contraindications"] ?? [],
-        adverseReactions: result["adverse_reactions"] ?? [],
-        drugInteractions: result["drug_interactions"] ?? [],
+        brandName: result.openfda?.brand_name ?? [],
+        genericName: result.openfda?.generic_name ?? [],
+        warnings: result.warnings ?? result.warnings_and_cautions ?? [],
+        contraindications: result.contraindications ?? [],
+        adverseReactions: result.adverse_reactions ?? [],
+        drugInteractions: result.drug_interactions ?? [],
         dosageAndAdministration:
-          result["dosage_and_administration"] ??
-          result["dosage_and_administration_table"] ??
+          result.dosage_and_administration ??
+          result.dosage_and_administration_table ??
           [],
       };
     } catch {
@@ -275,14 +304,41 @@ export class DrugClient {
   }
 
   /**
-   * Normalizes RxNav severity strings to typed enum values.
+   * Infers interaction severity from language in the interaction text.
    */
-  private parseSeverity(severity?: string): InteractionSeverity {
-    const s = severity?.toLowerCase() ?? "";
-    if (s.includes("high") || s.includes("major")) return "high";
-    if (s.includes("moderate")) return "moderate";
-    if (s.includes("low") || s.includes("minor")) return "low";
+  private inferSeverityFromText(text: string): InteractionSeverity {
+    const highKeywords = [
+      "contraindicated", "avoid", "serious", "severe", "life-threatening",
+      "fatal", "do not use", "major", "significant increase",
+    ];
+    const moderateKeywords = [
+      "monitor", "caution", "moderate", "may increase", "may decrease",
+      "adjust dose", "consider", "use with caution",
+    ];
+    const lowKeywords = ["minor", "minimal", "unlikely", "small"];
+
+    for (const kw of highKeywords) {
+      if (text.includes(kw)) return "high";
+    }
+    for (const kw of moderateKeywords) {
+      if (text.includes(kw)) return "moderate";
+    }
+    for (const kw of lowKeywords) {
+      if (text.includes(kw)) return "low";
+    }
     return "unknown";
+  }
+
+  /**
+   * Truncates long interaction text for display, preserving complete sentences.
+   */
+  private truncateInteractionText(text: string, maxLength = 500): string {
+    if (text.length <= maxLength) return text;
+    const truncated = text.slice(0, maxLength);
+    const lastPeriod = truncated.lastIndexOf(".");
+    return lastPeriod > 100
+      ? truncated.slice(0, lastPeriod + 1) + " [truncated]"
+      : truncated + "... [truncated]";
   }
 }
 

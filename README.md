@@ -82,8 +82,8 @@ DischargeGuard MCP Server
     ├─── get_recent_labs ─────────► HAPI FHIR R4 /Observation
     └─── check_drug_interactions
               │
-              ├── NLM RxNorm /rxcui.json  (drug name → RxCUI)
-              └── NLM RxNav /interaction/list.json  (interaction check)
+              ├── NLM RxNorm /rxcui.json        (drug name → RxCUI)
+              └── OpenFDA /drug/label.json       (drug_interactions text)
 
 generate_discharge_summary  (orchestrates all of the above in parallel)
     │
@@ -147,10 +147,11 @@ Checks drug-drug interactions using NLM RxNorm + RxNav.
 
 **Workflow:**
 1. Resolve each drug name to an RxCUI via NLM RxNorm
-2. Submit RxCUIs to NLM RxNav interaction checker
-3. Return interactions sorted by severity
+2. Fetch each drug's label from OpenFDA and extract `drug_interactions` text
+3. Cross-reference drugs: flag pairs where one drug's label mentions the other
+4. Infer severity from label language (contraindicated → high, monitor → moderate, etc.)
 
-**Returns:** Interactions with severity (HIGH/MODERATE/LOW), descriptions, unresolvable drug names, overall risk level and clinical risk summary.
+**Returns:** Interactions with severity (HIGH/MODERATE/LOW), descriptions from FDA label text, unresolvable drug names, overall risk level and clinical risk summary.
 
 ---
 
@@ -211,25 +212,47 @@ Add to your `claude_desktop_config.json`:
 
 ## Demo: Testing with HAPI FHIR Patients
 
-The HAPI FHIR public server (`https://hapi.fhir.org/baseR4`) has Synthea synthetic patients pre-loaded.
+The HAPI FHIR public server (`https://hapi.fhir.org/baseR4`) has synthetic patients pre-loaded.
 
-### Finding Patient IDs
+### Recommended Demo Patient
+
+**Patient ID: `131284056`** — This patient has **10 active medications**, making them ideal for demonstrating polypharmacy detection and drug interaction checking.
+
+### Running the Demo Script
 
 ```bash
-curl "https://hapi.fhir.org/baseR4/Patient?_count=5" | jq '.entry[].resource.id'
+npm run build
+node dist/demo.js 131284056
 ```
 
-### Example patient IDs to try
+The demo script runs all 6 tools in sequence and prints formatted output:
+1. `get_patient_summary` — demographics
+2. `get_active_medications` — medication list with polypharmacy flag
+3. `get_allergies` — allergy list with drug allergy count
+4. `get_active_conditions` — active diagnoses
+5. `get_recent_labs` — lab results with abnormal flags
+6. `check_drug_interactions` — OpenFDA-powered interaction analysis
 
+You can pass any HAPI FHIR patient ID:
+
+```bash
+node dist/demo.js <patient_id>
 ```
-# These IDs exist on the HAPI FHIR public server (Synthea synthetic patients):
-592472
-592473
-592474
 
-# Or fetch fresh IDs:
-curl "https://hapi.fhir.org/baseR4/Patient?_count=10&_elements=id,name,birthDate" \
-  | jq '.entry[] | {id: .resource.id, name: .resource.name[0].text, dob: .resource.birthDate}'
+### Finding Patients with Multiple Medications
+
+```bash
+# Find patients with the most active medications
+curl "https://hapi.fhir.org/baseR4/MedicationRequest?status=active&_count=50&_format=json" \
+  | python3 -c "
+import json, sys
+from collections import Counter
+data = json.load(sys.stdin)
+c = Counter()
+for e in data.get('entry', []):
+    c[e['resource']['subject']['reference']] += 1
+print(c.most_common(5))
+"
 ```
 
 ### Tool call examples (via MCP client)
@@ -238,7 +261,7 @@ curl "https://hapi.fhir.org/baseR4/Patient?_count=10&_elements=id,name,birthDate
 // Get patient summary
 {
   "tool": "get_patient_summary",
-  "arguments": { "patient_id": "592472" }
+  "arguments": { "patient_id": "131284056" }
 }
 
 // Check drug interactions
@@ -253,7 +276,7 @@ curl "https://hapi.fhir.org/baseR4/Patient?_count=10&_elements=id,name,birthDate
 {
   "tool": "generate_discharge_summary",
   "arguments": {
-    "patient_id": "592472",
+    "patient_id": "131284056",
     "include_pcp_note": true,
     "include_patient_card": true
   }
@@ -268,8 +291,7 @@ curl "https://hapi.fhir.org/baseR4/Patient?_count=10&_elements=id,name,birthDate
 |-----|---------|-----|
 | HAPI FHIR R4 | Patient data | `https://hapi.fhir.org/baseR4` |
 | NLM RxNorm | Drug name → RxCUI | `https://rxnav.nlm.nih.gov/REST/rxcui.json` |
-| NLM RxNav Interactions | Drug-drug interactions | `https://rxnav.nlm.nih.gov/REST/interaction/list.json` |
-| OpenFDA Drug Labels | Drug label information | `https://api.fda.gov/drug/label.json` |
+| OpenFDA Drug Labels | Drug interactions + label info | `https://api.fda.gov/drug/label.json` |
 
 ---
 
@@ -335,7 +357,7 @@ DischargeGuard explicitly supports pediatric patients per Children's Hospital of
 |-----------|------------------------|
 | **Impact** | Addresses 1.5M ADEs/year, $21B preventable costs, 1-in-5 patient error rate |
 | **Technical Excellence** | TypeScript, FHIR R4, MCP SDK, Zod validation, parallel data fetching, full type safety |
-| **Innovation** | First MCP server combining FHIR + RxNav + SHARP for discharge safety |
+| **Innovation** | First MCP server combining FHIR + OpenFDA drug labels + SHARP for discharge safety |
 | **Completeness** | 7 fully implemented MCP tools, error handling, graceful degradation |
 | **Clinical Rigor** | FHIR R4 resource types, RxNorm normalization, LOINC/ICD/SNOMED codes, CHOP pediatric standards |
 | **Agent Architecture** | SHARP context propagation enables multi-agent discharge workflows |
